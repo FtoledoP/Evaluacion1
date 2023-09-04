@@ -22,12 +22,22 @@
         </ion-item>
 
         <ion-item>
-          <ion-input label="Usuario" placeholder="Ingrese un nombre de usuario"></ion-input>
+          <ion-input label="Rut" placeholder="Ingrese su Rut"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input label="Contraseña" type="password" value="" placeholder="Ingrese la contraseña"></ion-input>
+          <ion-input label="Carrera" placeholder="Ingrese la carrera que estudia"></ion-input>
         </ion-item>
+        
+        <div class="container" id="infoUser">
+          <ion-item>
+            <ion-input label="Usuario" placeholder="Ingrese un nombre de usuario"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-input label="Contraseña" type="password" value="" placeholder="Ingrese la contraseña"></ion-input>
+          </ion-item>
+        </div>
     
       </ion-list>
     <ion-button [routerLink]="'/login'" >Registrarse</ion-button>

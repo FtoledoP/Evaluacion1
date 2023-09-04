@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>FabsAPP</ion-title>
+    <ion-title>RegistrApp</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,7 +12,6 @@
   </ion-header>
 
   <div id="container">
-    <p>Aqui comienza todo ...</p>
     <strong>Bievenid@!</strong>
     <ion-list>
       <ion-item>
@@ -26,13 +25,14 @@
     </ion-list>
     <ion-button expand="full" [disabled]="!esFormularioValido" (click)="iniciarSesion()">Ingresar</ion-button>
     <p *ngIf="errorMensaje" class="error-message">{{ errorMensaje }}</p>
-    <ion-button [routerLink]="'/registro'" fill="clear">Crea tu cuenta gratis</ion-button>
+    <ion-button [routerLink]="'/restablecerContra'" fill="clear">¿Olvidaste tu contraseña?</ion-button>
+    <ion-button [routerLink]="'/registro'" fill="clear">¿No tienes cuenta? Registrate</ion-button>
 
   </div>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="light">
-    <ion-title>App desarrollada por Fabiola Betancourt</ion-title>
+    <ion-title>App desarrollada por F.F company</ion-title>
   </ion-toolbar>
 </ion-footer>
