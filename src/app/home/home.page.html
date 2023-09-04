@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title id="animacion" >
+      HOME
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">HOME</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <strong>Bienvenid@!!! </strong>
+    <h5>Usuario:  {{ usuario }}</h5>
+    <h1>Información Adicional </h1>
+
+
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input id="nombre-input" placeholder="Ingrese su nombre" [(ngModel)]="nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido</ion-label>
+        <ion-input id="apellido-input" placeholder="Ingrese su apellido" [(ngModel)]="apellido"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nivel de educación</ion-label>
+        <ion-select [(ngModel)]="nivelEducacion">
+          <ion-select-option value="Primaria">Primaria</ion-select-option>
+          <ion-select-option value="Secundaria">Secundaria</ion-select-option>
+          <ion-select-option value="Universidad">Universidad</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Fecha de Nacimiento </ion-label>
+        <br>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="seleccionFecha">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="full" (click)="iniciarAnimacion()">Limpiar</ion-button>
+    <ion-button expand="full" (click)="mostrarInformacion()">Mostrar</ion-button>
+    <ion-button expand="full" (click)="cerrarSesion()">Cerrar sesión</ion-button>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-title>App desarrollada por Fabiola Betancourt</ion-title>
+  </ion-toolbar>
+</ion-footer>
