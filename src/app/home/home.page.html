@@ -29,21 +29,6 @@
         <ion-label position="floating">Apellido</ion-label>
         <ion-input id="apellido-input" placeholder="Ingrese su apellido" [(ngModel)]="apellido"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label position="floating">Nivel de educación</ion-label>
-        <ion-select [(ngModel)]="nivelEducacion">
-          <ion-select-option value="Primaria">Primaria</ion-select-option>
-          <ion-select-option value="Secundaria">Secundaria</ion-select-option>
-          <ion-select-option value="Universidad">Universidad</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Fecha de Nacimiento </ion-label>
-        <br>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="seleccionFecha">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </ion-item>
     </ion-list>
     <ion-button expand="full" (click)="iniciarAnimacion()">Limpiar</ion-button>
     <ion-button expand="full" (click)="mostrarInformacion()">Mostrar</ion-button>
@@ -53,6 +38,6 @@
 
 <ion-footer>
   <ion-toolbar color="light">
-    <ion-title>App desarrollada por Fabiola F.F company</ion-title>
+    <ion-title>App desarrollada por F.F company</ion-title>
   </ion-toolbar>
 </ion-footer>
