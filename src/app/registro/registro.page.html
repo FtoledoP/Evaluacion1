@@ -14,34 +14,41 @@
   <div id="container">
       <ion-list>
         <ion-item>
-          <ion-input label="Nombre" placeholder="Ingrese su nombre"></ion-input>
+          <ion-input id="nombre"   label="Nombre" placeholder="Ingrese su nombre"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input label="Apellido" placeholder="Ingrese su apellido"></ion-input>
+          <ion-input id="apellido" label="Apellido" placeholder="Ingrese su apellido"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input label="Rut" placeholder="Ingrese su Rut"></ion-input>
+          <ion-input id="rut" label="Rut" placeholder="Ingrese su Rut"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input label="Carrera" placeholder="Ingrese la carrera que estudia"></ion-input>
+          <ion-input id="carrera" label="Carrera" placeholder="Ingrese la carrera que estudia"></ion-input>
         </ion-item>
         
         <div class="container" id="infoUser">
           <ion-item>
-            <ion-input label="Usuario" placeholder="Ingrese un nombre de usuario"></ion-input>
+            <ion-input id="usuario" label="Usuario" placeholder="Ingrese un nombre de usuario"></ion-input>
           </ion-item>
   
           <ion-item>
-            <ion-input label="Contraseña" type="password" value="" placeholder="Ingrese la contraseña"></ion-input>
+            <ion-input id = "contraseña" label="Contraseña" type="password" value="" placeholder="Ingrese la contraseña"></ion-input>
           </ion-item>
         </div>
+
+        <ion-item>
+          <select name="" id="selector"><option value="selecciona"> Seleccione</option>
+            <option value="Profesor">Profesor</option>
+          <option value="Estudiante">Estudiante</option>
+          </select>
+        </ion-item>
     
       </ion-list>
-    <ion-button [routerLink]="'/login'" >Registrarse</ion-button>
+    <ion-button (click)="registrar()" [routerLink]="'/login'" >Registrarse</ion-button>
+  
   </div>
-
 
 </ion-content>
