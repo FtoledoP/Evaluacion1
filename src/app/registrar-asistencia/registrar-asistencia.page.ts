@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { Result, BarcodeFormat } from '@zxing/library';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-asistencia',
@@ -10,6 +11,19 @@ import { Result, BarcodeFormat } from '@zxing/library';
 export class RegistrarAsistenciaPage implements AfterViewInit {
   @ViewChild('scanner', { static: false })
   scanner!: ZXingScannerComponent;
+  nombre!:string
+  apellido!:string
+  rut!:string
+  datoUsuario = {
+    nombre: '',
+    apellido: '',
+    rut: '',
+    escuela: '',
+    carrera: '',
+    // correo: '',
+    contraseña: '',
+    usuario: ''
+  };
 
   hasDevices: boolean = false;
   qrResultString: string = '';
@@ -24,7 +38,7 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
     BarcodeFormat.DATA_MATRIX
   ];
 
-  constructor() {}
+  constructor(private router:Router) {}
 
   ngAfterViewInit(): void {
     this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
@@ -56,9 +70,19 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
   }
 
   handleQrCodeResult(resultString: string) {
+    const usuarioActualString = localStorage.getItem('credenciales');
+
+    if (usuarioActualString) {
+      this.datoUsuario = JSON.parse(usuarioActualString);
+      console.log(usuarioActualString);
+      console.log(this.datoUsuario)
+    }
+    this.datosUsuario();
     console.log('Result: ', resultString);
+    console.log(this.datoUsuario);
     this.qrResultString = resultString;
-  }
+    this.scanner.ngOnDestroy();
+    }
 
   onDeviceSelectChange() {
     console.log('Selection changed: ', this.currentDevice?.label);
@@ -69,4 +93,13 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
       setTimeout(() => this.scanner.ngOnInit(), 0);
     }
   }
+
+  datosUsuario() {
+
+    this.nombre = this.datoUsuario.nombre;
+    this.apellido = this.datoUsuario.apellido;
+    this.rut = this.datoUsuario.rut;
+    
+  }
+
 }

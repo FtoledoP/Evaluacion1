@@ -21,7 +21,7 @@
       <zxing-scanner #scanner start="true" [device]="currentDevice" (scanSuccess)="handleQrCodeResult($event)" [formats]="formats"></zxing-scanner>
     
       <section class="results" *ngIf="qrResultString">
-        <small>Result</small>
+        <small>Clase registrada:</small>
         <p>{{ qrResultString }}</p>
       </section>
     </div>

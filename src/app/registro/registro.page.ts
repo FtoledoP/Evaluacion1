@@ -12,8 +12,8 @@ export class RegistroPage {
   carrera: string = '';
   usuario: string = '';
   contraseña: string = '';
-  selector: string = '';
   credencialesGuardadas: any[] = [];
+  
 
   constructor() {}
 
@@ -25,8 +25,6 @@ export class RegistroPage {
     this.carrera = (document.querySelector('#carrera') as HTMLInputElement).value;
     this.usuario = (document.querySelector('#usuario') as HTMLInputElement).value;
     this.contraseña = (document.querySelector('#contraseña') as HTMLInputElement).value;
-    this.selector = (document.querySelector('#selector') as HTMLInputElement).value;
-
     // Crear un objeto de credenciales
     /*const credenciales = {
       nombre: this.nombre,
@@ -51,7 +49,6 @@ export class RegistroPage {
       carrera: this.carrera,
       usuario: this.usuario,
       contraseña: this.contraseña,
-      selector: this.selector,
     });
 
 
