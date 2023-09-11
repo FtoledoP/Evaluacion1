@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>registrarAsistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">registrarAsistencia</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="container">
+    <div class="scanner-sheel" [hidden]="!hasDevices">
+      <select (change)="onDeviceSelectChange()">
+        <option value="" [selected]="!currentDevice">No device selected</option>
+        <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{ device.label }}</option>
+      </select>
+    
+      <zxing-scanner #scanner start="true" [device]="currentDevice" (scanSuccess)="handleQrCodeResult($event)" [formats]="formats"></zxing-scanner>
+    
+      <section class="results" *ngIf="qrResultString">
+        <small>Result</small>
+        <p>{{ qrResultString }}</p>
+      </section>
+    </div>
+    
+  </div>
+</ion-content>

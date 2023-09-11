@@ -25,7 +25,7 @@
     </ion-list>
     <ion-button expand="full" [disabled]="!esFormularioValido" (click)="iniciarSesion()">Ingresar</ion-button>
     <p *ngIf="errorMensaje" class="error-message">{{ errorMensaje }}</p>
-    <ion-button [routerLink]="'/restablecerContra'" fill="clear">¿Olvidaste tu contraseña?</ion-button>
+    <ion-button [routerLink]="'/restablecer-contra'" fill="clear">¿Olvidaste tu contraseña?</ion-button>
     <ion-button [routerLink]="'/registro'" fill="clear">¿No tienes cuenta? Registrate</ion-button>
 
   </div>
