@@ -16,18 +16,17 @@
     <ion-list>
       <ion-item>
         <ion-label position="floating">Usuario</ion-label>
-        <ion-input [(ngModel)]="usuario" placeholder="Ingrese su usuario" maxlength="8" (ionInput)="validarAlfanumerico()"></ion-input>
+        <ion-input [(ngModel)]="usuario" placeholder="Ingrese su usuario" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
-        <ion-input [(ngModel)]="contrasena" type="password" placeholder="****" maxlength="4" (ionInput)="validarContrasenaNumerica()"></ion-input>
+        <ion-input [(ngModel)]="contrasena" type="password" placeholder="****"  ></ion-input>
       </ion-item>
     </ion-list>
-    <ion-button expand="full" [disabled]="!esFormularioValido" (click)="iniciarSesion()">Ingresar</ion-button>
+    <ion-button expand="full" (click)="iniciarSesion()">Ingresar</ion-button>
     <p *ngIf="errorMensaje" class="error-message">{{ errorMensaje }}</p>
     <ion-button [routerLink]="'/restablecer-contra'" fill="clear">¿Olvidaste tu contraseña?</ion-button>
     <ion-button [routerLink]="'/registro'" fill="clear">¿No tienes cuenta? Registrate</ion-button>
-
   </div>
 </ion-content>
 

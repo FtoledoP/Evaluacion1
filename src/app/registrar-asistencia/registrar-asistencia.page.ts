@@ -20,7 +20,6 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
     rut: '',
     escuela: '',
     carrera: '',
-    // correo: '',
     contraseña: '',
     usuario: ''
   };
@@ -37,6 +36,8 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
     BarcodeFormat.CODE_128,
     BarcodeFormat.DATA_MATRIX
   ];
+
+  usuariosStorage!:any;
 
   constructor(private router:Router) {}
 
@@ -82,6 +83,15 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
     console.log(this.datoUsuario);
     this.qrResultString = resultString;
     this.scanner.ngOnDestroy();
+    }
+
+    cargaInfoUsuario() {
+      this.usuariosStorage = JSON.parse(localStorage.getItem('credenciales') || '{}');
+      console.log('Carga info usuario', this.usuariosStorage[0].nombre);
+    }
+
+    ngOnInit() {
+      this.cargaInfoUsuario();
     }
 
   onDeviceSelectChange() {

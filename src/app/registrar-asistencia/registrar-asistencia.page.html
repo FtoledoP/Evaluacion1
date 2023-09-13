@@ -23,8 +23,21 @@
       <section class="results" *ngIf="qrResultString">
         <small>Clase registrada:</small>
         <p>{{ qrResultString }}</p>
+        <ion-card *ngFor="let u of usuariosStorage" >
+          <div class="box">
+            <h3>Nombre:</h3>
+            <small>{{u.nombre}}</small>
+          </div>
+          <div class="box">
+            <h3>Apellido:</h3>
+            <small>{{u.apellido}}</small>
+          </div>
+          <div class="box">
+            <h3>Rut:</h3>
+            <small>{{u.rut}}</small>
+          </div>
+        </ion-card>
       </section>
     </div>
-    
   </div>
 </ion-content>
