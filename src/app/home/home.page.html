@@ -19,18 +19,7 @@
     <h5>Usuario:  {{ usuario }}</h5>
     <h1>Información Adicional </h1>
 
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input id="nombre-input" placeholder="Ingrese su nombre" [(ngModel)]="nombre"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Apellido</ion-label>
-        <ion-input id="apellido-input" placeholder="Ingrese su apellido" [(ngModel)]="apellido"></ion-input>
-      </ion-item>
-    </ion-list>
     <ion-button expand="full" [routerLink]="'/registrar-asistencia'">Registrar asistencia</ion-button>
-    <ion-button expand="full" (click)="iniciarAnimacion()">Limpiar</ion-button>
     <ion-button expand="full" (click)="cerrarSesion()">Cerrar sesión</ion-button>
   </div>
 </ion-content>

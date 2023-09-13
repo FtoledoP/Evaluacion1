@@ -30,22 +30,6 @@ export class HomePage {
     });
   }
 
-  limpiarCampos() {
-    this.nombre = '';
-    this.apellido = '';
-    this.nivelEducacion = '';
-    this.seleccionFecha = null;
-    
-  }
-
-  async iniciarAnimacion() {
-
-    this.playAnimation('nombre-input');
-    this.playAnimation('apellido-input');
-    await this.esperarUnSegundo()
-    this.limpiarCampos()
-
-  }
 
   async playAnimation(inputId: string) {
     const inputElement = document.getElementById(inputId);
