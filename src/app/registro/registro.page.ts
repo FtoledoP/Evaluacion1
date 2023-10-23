@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-registro',
@@ -13,9 +15,15 @@ export class RegistroPage {
   usuario: string = '';
   contraseña: string = '';
   credencialesGuardadas: any[] = [];
-  
+  registerForm: FormGroup;
 
-  constructor() {}
+
+  constructor(private fb: FormBuilder) {
+    this.registerForm = this.fb.group({
+      nombre: ['', Validators.required],
+      usuario: ['', Validators.required],
+      password: ['', (Validators.required, Validators.minLength(6))],})
+  }
 
   registrar() {
     // Obtener los valores de los campos de entrada
@@ -40,7 +48,7 @@ export class RegistroPage {
     this.credencialesGuardadas = JSON.parse(localStorage.getItem('credenciales') || '[]');
 
     console.log(this.credencialesGuardadas);
-    
+
     // Agregar las nuevas credenciales al arreglo
     this.credencialesGuardadas.push({
       nombre: this.nombre,
@@ -60,4 +68,18 @@ export class RegistroPage {
 
     // Redirigir a otra página o realizar otras acciones según sea necesario
   }
+
+  validationMessages = {
+    nombre: {
+      required: 'Debe ingresar un nombre.'
+    },
+    usuario: {
+      required: 'Debe ingresar un nombre de usuario.'
+    },
+    password: {
+      required: 'Debe ingresar una contraseña.',
+      minlength: 'La contraseña debe tener al menos 6 caracteres.'
+    }
+  };
+
 }

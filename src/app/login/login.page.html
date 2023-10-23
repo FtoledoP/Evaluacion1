@@ -26,8 +26,11 @@
           <ion-label for="password" position="floating">Contraseña</ion-label>
           <ion-input class="form-control" id="password" formControlName="password" type="password" placeholder="****"  ></ion-input>
         </ion-item>
+        <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.dirty">
+          {{ validationMessages.password.required }}
+        </div>
       </ion-list>
-      <ion-button type="submit" expand="full">Ingresar</ion-button>
+      <ion-button type="submit" [disabled]="!loginForm.valid" expand="full">Ingresar</ion-button>
     </form>
     <p *ngIf="errorMensaje" class="error-message">{{ errorMensaje }}</p>
     <ion-button [routerLink]="'/restablecer-contra'" fill="clear">¿Olvidaste tu contraseña?</ion-button>

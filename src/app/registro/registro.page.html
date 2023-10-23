@@ -12,36 +12,39 @@
   </ion-header>
 
   <div id="container">
+
+    <form [formGroup]="registerForm">
       <ion-list>
-        <ion-item>
-          <ion-input id="nombre"   label="Nombre" placeholder="Ingrese su nombre"></ion-input>
+        <ion-item class="formGroup">
+          <ion-label for="nombre" position="floating">Usuario</ion-label>
+          <ion-input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Ingrese su nombre"></ion-input>
+          <div *ngIf="registerForm.get('nombre')?.hasError('required') && registerForm.get('nombre')?.dirty">
+            {{ validationMessages.nombre.required }}
+          </div>
         </ion-item>
-
-        <ion-item>
-          <ion-input id="apellido" label="Apellido" placeholder="Ingrese su apellido"></ion-input>
+        <ion-item class="formGroup">
+          <ion-label for="usuario" position="floating">Usuario</ion-label>
+          <ion-input type="text" class="form-control" id="usuario" formControlName="usuario" placeholder="Ingrese su usuario"></ion-input>
+          <div *ngIf="registerForm.get('usuario')?.hasError('required') && registerForm.get('usuario')?.dirty">
+            {{ validationMessages.usuario.required }}
+          </div>
         </ion-item>
-
-        <ion-item>
-          <ion-input id="rut" label="Rut" placeholder="Ingrese su Rut"></ion-input>
+        <ion-item class="formGroup">
+          <ion-label for="password" position="floating">Contraseña</ion-label>
+          <ion-input class="form-control" id="password" formControlName="password" type="password" placeholder="******"  ></ion-input>
         </ion-item>
-
-        <ion-item>
-          <ion-input id="carrera" label="Carrera" placeholder="Ingrese la carrera que estudia"></ion-input>
-        </ion-item>
-        
-        <div class="container" id="infoUser">
-          <ion-item>
-            <ion-input id="usuario" label="Usuario" placeholder="Ingrese un nombre de usuario"></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-input id = "contraseña" label="Contraseña" type="password" value="" placeholder="Ingrese la contraseña"></ion-input>
-          </ion-item>
+        <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.dirty">
+          {{ validationMessages.password.required }}
         </div>
-    
+        <div *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.dirty">
+          {{ validationMessages.password.minlength }}
+        </div>
       </ion-list>
+      <ion-button type="submit" [disabled]="!registerForm.valid" expand="full">Ingresar</ion-button>
+    </form>
+
     <ion-button (click)="registrar()" [routerLink]="'/login'" >Registrarse</ion-button>
-  
+
   </div>
 
 </ion-content>

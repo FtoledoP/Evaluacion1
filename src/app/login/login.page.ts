@@ -18,7 +18,7 @@ export class LoginPage {
               private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       usuario: ['', Validators.required],
-      password: ['', (Validators.required, Validators.minLength(6))],})
+      password: ['', (Validators.required)],})
   }
 
   ionViewWillEnter() {
@@ -49,7 +49,6 @@ export class LoginPage {
     },
     password: {
       required: 'Debe ingresar una contraseña.',
-      minlength: 'La contraseña debe tener al menos 6 caracteres.'
     }
   };
 
