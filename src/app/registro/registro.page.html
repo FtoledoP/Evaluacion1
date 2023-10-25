@@ -3,7 +3,6 @@
     <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -13,7 +12,7 @@
 
   <div id="container">
 
-    <form [formGroup]="registerForm">
+    <form [formGroup]="registerForm" (ngSubmit)="registrar()">
       <ion-list>
         <ion-item class="formGroup">
           <ion-label for="nombre" position="floating">Nombre</ion-label>
@@ -66,7 +65,7 @@
       </ion-list>
       <ion-button type="submit" [disabled]="!registerForm.valid" expand="full">Registrarse</ion-button>
     </form>
-
   </div>
-
 </ion-content>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "timer" [fullScreen] = "true"><p style="color: white" > Cargando . . . </p></ngx-spinner>

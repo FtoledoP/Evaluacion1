@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -18,7 +22,10 @@ export class RegistroPage {
   registerForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private spinner: NgxSpinnerService,
+              private userService: UserService,
+              private router: Router) {
     this.registerForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -29,49 +36,28 @@ export class RegistroPage {
   }
 
   registrar() {
-    // Obtener los valores de los campos de entrada
-    this.nombre = (document.querySelector('#nombre') as HTMLInputElement).value;
-    this.apellido = (document.querySelector('#apellido') as HTMLInputElement).value;
-    this.rut = (document.querySelector('#rut') as HTMLInputElement).value;
-    this.carrera = (document.querySelector('#carrera') as HTMLInputElement).value;
-    this.usuario = (document.querySelector('#usuario') as HTMLInputElement).value;
-    this.contraseña = (document.querySelector('#contraseña') as HTMLInputElement).value;
-    // Crear un objeto de credenciales
-    /*const credenciales = {
-      nombre: this.nombre,
-      apellido: this.apellido,
-      rut: this.rut,
-      carrera: this.carrera,
-      usuario: this.usuario,
-      contraseña: this.contraseña,
-      selector: this.selector,
-    };*/
-
-    // Obtener las credenciales existentes del Local Storage o inicializar un arreglo vacío si no existen
-    this.credencialesGuardadas = JSON.parse(localStorage.getItem('credenciales') || '[]');
-
-    console.log(this.credencialesGuardadas);
-
-    // Agregar las nuevas credenciales al arreglo
-    this.credencialesGuardadas.push({
-      nombre: this.nombre,
-      apellido: this.apellido,
-      rut: this.rut,
-      carrera: this.carrera,
-      usuario: this.usuario,
-      contraseña: this.contraseña,
-    });
-
-
-    console.log(this.credencialesGuardadas);
-
-
-    // Guardar el arreglo actualizado en el Local Storage
-    localStorage.setItem('credenciales', JSON.stringify(this.credencialesGuardadas));
-
-    // Redirigir a otra página o realizar otras acciones según sea necesario
+    this.spinner.show();
+    if (this.registerForm.valid) {
+      const data = this.registerForm.value;
+      console.log('Formulario válido:', this.registerForm.value);
+      this.userService.register(data.correo, data.password).then((res) => {
+        console.log('Usuario registrado correctamente: ' + res);
+        this.userService.createUser(data).then((res) => {
+          console.log('Usuario creado en la base de datos: ' + res);
+          this.router.navigate(['/login']);
+          this.registerForm.reset();
+        }).catch((err) => {
+          console.log(err);
+          this.spinner.hide();
+        })
+      }).catch((err) => {
+        console.log(err);
+        this.spinner.hide();
+      })
+      this.spinner.hide();
+      this.registerForm.reset();
+    }
   }
-
   validationMessages = {
     nombre: {
       required: 'Debe ingresar su nombre.'

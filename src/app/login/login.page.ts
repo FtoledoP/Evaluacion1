@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,9 @@ export class LoginPage {
   loginForm: FormGroup;
 
   constructor(private navCtrl: NavController,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private spinner: NgxSpinnerService) {
+    this.spinner.hide()
     this.loginForm = this.fb.group({
       usuario: ['', Validators.required],
       password: ['', (Validators.required)],})
