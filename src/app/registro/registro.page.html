@@ -54,7 +54,7 @@
         </ion-item>
         <ion-item class="formGroup">
           <ion-label for="password" position="floating">Contraseña</ion-label>
-          <ion-input type="text" class="form-control" id="password" formControlName="password" placeholder="Ingrese su nombre de usuario"></ion-input>
+          <ion-input type="password" class="form-control" id="password" formControlName="password" placeholder="Ingrese su contraseña"></ion-input>
           <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.dirty">
             {{ validationMessages.password.required }}
           </div>
@@ -68,4 +68,4 @@
   </div>
 </ion-content>
 
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "timer" [fullScreen] = "true"><p style="color: white" > Cargando . . . </p></ngx-spinner>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "default" color = "#fff" type = "timer" [fullScreen] = "true"></ngx-spinner>

@@ -38,24 +38,24 @@ export class RegistroPage {
   registrar() {
     this.spinner.show();
     if (this.registerForm.valid) {
+      this.spinner.show();
       const data = this.registerForm.value;
       console.log('Formulario válido:', this.registerForm.value);
       this.userService.register(data.correo, data.password).then((res) => {
         console.log('Usuario registrado correctamente: ' + res);
         this.userService.createUser(data).then((res) => {
           console.log('Usuario creado en la base de datos: ' + res);
+          this.spinner.hide();
           this.router.navigate(['/login']);
           this.registerForm.reset();
         }).catch((err) => {
           console.log(err);
-          this.spinner.hide();
+          this.spinner
         })
       }).catch((err) => {
         console.log(err);
         this.spinner.hide();
       })
-      this.spinner.hide();
-      this.registerForm.reset();
     }
   }
   validationMessages = {

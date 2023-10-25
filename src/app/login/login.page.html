@@ -16,10 +16,10 @@
     <form [formGroup]="loginForm">
       <ion-list>
         <ion-item class="formGroup" (ngSubmit)="iniciarSesion()">
-          <ion-label for="usuario" position="floating">Usuario</ion-label>
-          <ion-input type="text" class="form-control" id="usuario" formControlName="usuario" placeholder="Ingrese su usuario"></ion-input>
-          <div *ngIf="loginForm.get('usuario')?.hasError('required') && loginForm.get('usuario')?.dirty">
-            {{ validationMessages.usuario.required }}
+          <ion-label for="correo" position="floating">Correo</ion-label>
+          <ion-input type="text" class="form-control" id="correo" formControlName="correo" placeholder="Ingrese su correo"></ion-input>
+          <div *ngIf="loginForm.get('correo')?.hasError('required') && loginForm.get('correo')?.dirty">
+            {{ validationMessages.correo.required }}
           </div>
         </ion-item>
         <ion-item class="formGroup">

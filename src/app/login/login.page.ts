@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -18,38 +20,26 @@ export class LoginPage {
 
   constructor(private navCtrl: NavController,
               private fb: FormBuilder,
-              private spinner: NgxSpinnerService) {
-    this.spinner.hide()
+              private spinner: NgxSpinnerService,
+              private router: Router,
+              private userService: UserService) {
     this.loginForm = this.fb.group({
-      usuario: ['', Validators.required],
+      correo: ['', Validators.required],
       password: ['', (Validators.required)],})
   }
 
-  ionViewWillEnter() {
 
-    this.restablecerCampos();
-  }
 
   iniciarSesion() {
-    this.errorMensaje = '';
-
-
-      this.navCtrl.navigateForward('/home', {
-        queryParams: { usuario: this.usuario },
-      });
-
+   if(this.loginForm.valid) {
+     console.log('Formulario válido:', this.loginForm.value);
+   }
   }
 
-  restablecerCampos() {
-    this.usuario = '';
-    this.contrasena = '';
-    this.esFormularioValido = false;
-    this.errorMensaje = '';
-  }
 
   validationMessages = {
-    usuario: {
-      required: 'Debe ingresar un nombre de usuario.'
+    correo: {
+      required: 'Debe ingresar un correo.'
     },
     password: {
       required: 'Debe ingresar una contraseña.',
