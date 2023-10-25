@@ -16,15 +16,36 @@
     <form [formGroup]="registerForm">
       <ion-list>
         <ion-item class="formGroup">
-          <ion-label for="nombre" position="floating">Usuario</ion-label>
+          <ion-label for="nombre" position="floating">Nombre</ion-label>
           <ion-input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Ingrese su nombre"></ion-input>
           <div *ngIf="registerForm.get('nombre')?.hasError('required') && registerForm.get('nombre')?.dirty">
             {{ validationMessages.nombre.required }}
           </div>
         </ion-item>
         <ion-item class="formGroup">
+          <ion-label for="apellido" position="floating">Apellido</ion-label>
+          <ion-input type="text" class="form-control" id="apellido" formControlName="apellido" placeholder="Ingrese su apellido"></ion-input>
+          <div *ngIf="registerForm.get('apellido')?.hasError('required') && registerForm.get('apellido')?.dirty">
+            {{ validationMessages.usuario.required }}
+          </div>
+        </ion-item>
+        <ion-item class="formGroup">
+          <ion-label for="rut" position="floating">Rut</ion-label>
+          <ion-input type="text" class="form-control" id="rut" formControlName="rut" placeholder="Ingrese su rut"></ion-input>
+          <div *ngIf="registerForm.get('rut')?.hasError('required') && registerForm.get('rut')?.dirty">
+            {{ validationMessages.usuario.required }}
+          </div>
+        </ion-item>
+        <ion-item class="formGroup">
+          <ion-label for="carrera" position="floating">Carrera</ion-label>
+          <ion-input type="text" class="form-control" id="carrera" formControlName="carrera" placeholder="Ingrese su carrera"></ion-input>
+          <div *ngIf="registerForm.get('carrera')?.hasError('required') && registerForm.get('carrera')?.dirty">
+            {{ validationMessages.usuario.required }}
+          </div>
+        </ion-item>
+        <ion-item class="formGroup">
           <ion-label for="usuario" position="floating">Usuario</ion-label>
-          <ion-input type="text" class="form-control" id="usuario" formControlName="usuario" placeholder="Ingrese su usuario"></ion-input>
+          <ion-input type="text" class="form-control" id="usuario" formControlName="usuario" placeholder="Ingrese su nombre de usuario"></ion-input>
           <div *ngIf="registerForm.get('usuario')?.hasError('required') && registerForm.get('usuario')?.dirty">
             {{ validationMessages.usuario.required }}
           </div>

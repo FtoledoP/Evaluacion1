@@ -21,6 +21,9 @@ export class RegistroPage {
   constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group({
       nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      rut:['', Validators.required],
+      carrera: ['', Validators.required],
       usuario: ['', Validators.required],
       password: ['', (Validators.required, Validators.minLength(6))],})
   }
@@ -71,7 +74,16 @@ export class RegistroPage {
 
   validationMessages = {
     nombre: {
-      required: 'Debe ingresar un nombre.'
+      required: 'Debe ingresar su nombre.'
+    },
+    apellido: {
+      required: 'Debe ingresar su apellido.'
+    },
+    rut: {
+      required: 'Debe ingresar su rut.'
+    },
+    carrera: {
+      required: 'Debe ingresar su carrera.'
     },
     usuario: {
       required: 'Debe ingresar un nombre de usuario.'
