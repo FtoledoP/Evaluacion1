@@ -24,8 +24,8 @@ export class RegistroPage {
       apellido: ['', Validators.required],
       rut:['', Validators.required],
       carrera: ['', Validators.required],
-      usuario: ['', Validators.required],
-      password: ['', (Validators.required, Validators.minLength(6))],})
+      correo: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]})
   }
 
   registrar() {
@@ -85,8 +85,9 @@ export class RegistroPage {
     carrera: {
       required: 'Debe ingresar su carrera.'
     },
-    usuario: {
-      required: 'Debe ingresar un nombre de usuario.'
+    correo: {
+      required: 'Debe ingresar un correo.',
+      email: 'Debe ingresar un correo válido.'
     },
     password: {
       required: 'Debe ingresar una contraseña.',

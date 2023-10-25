@@ -26,45 +26,46 @@
           <ion-label for="apellido" position="floating">Apellido</ion-label>
           <ion-input type="text" class="form-control" id="apellido" formControlName="apellido" placeholder="Ingrese su apellido"></ion-input>
           <div *ngIf="registerForm.get('apellido')?.hasError('required') && registerForm.get('apellido')?.dirty">
-            {{ validationMessages.usuario.required }}
+            {{ validationMessages.apellido.required }}
           </div>
         </ion-item>
         <ion-item class="formGroup">
           <ion-label for="rut" position="floating">Rut</ion-label>
           <ion-input type="text" class="form-control" id="rut" formControlName="rut" placeholder="Ingrese su rut"></ion-input>
           <div *ngIf="registerForm.get('rut')?.hasError('required') && registerForm.get('rut')?.dirty">
-            {{ validationMessages.usuario.required }}
+            {{ validationMessages.rut.required }}
           </div>
         </ion-item>
         <ion-item class="formGroup">
           <ion-label for="carrera" position="floating">Carrera</ion-label>
           <ion-input type="text" class="form-control" id="carrera" formControlName="carrera" placeholder="Ingrese su carrera"></ion-input>
           <div *ngIf="registerForm.get('carrera')?.hasError('required') && registerForm.get('carrera')?.dirty">
-            {{ validationMessages.usuario.required }}
+            {{ validationMessages.carrera.required }}
           </div>
         </ion-item>
         <ion-item class="formGroup">
-          <ion-label for="usuario" position="floating">Usuario</ion-label>
-          <ion-input type="text" class="form-control" id="usuario" formControlName="usuario" placeholder="Ingrese su nombre de usuario"></ion-input>
-          <div *ngIf="registerForm.get('usuario')?.hasError('required') && registerForm.get('usuario')?.dirty">
-            {{ validationMessages.usuario.required }}
+          <ion-label for="correo" position="floating">Correo</ion-label>
+          <ion-input type="text" class="form-control" id="correo" formControlName="correo" placeholder="Ingrese su correo"></ion-input>
+          <div *ngIf="registerForm.get('correo')?.hasError('required') && registerForm.get('correo')?.dirty">
+            {{ validationMessages.correo.required }}
+          </div>
+          <div *ngIf="registerForm.get('correo')?.hasError('email') && registerForm.get('correo')?.dirty">
+            {{ validationMessages.correo.email}}
           </div>
         </ion-item>
         <ion-item class="formGroup">
           <ion-label for="password" position="floating">Contraseña</ion-label>
-          <ion-input class="form-control" id="password" formControlName="password" type="password" placeholder="******"  ></ion-input>
+          <ion-input type="text" class="form-control" id="password" formControlName="password" placeholder="Ingrese su nombre de usuario"></ion-input>
+          <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.dirty">
+            {{ validationMessages.password.required }}
+          </div>
+          <div *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.dirty">
+            {{ validationMessages.password.minlength }}
+          </div>
         </ion-item>
-        <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.dirty">
-          {{ validationMessages.password.required }}
-        </div>
-        <div *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.dirty">
-          {{ validationMessages.password.minlength }}
-        </div>
       </ion-list>
-      <ion-button type="submit" [disabled]="!registerForm.valid" expand="full">Ingresar</ion-button>
+      <ion-button type="submit" [disabled]="!registerForm.valid" expand="full">Registrarse</ion-button>
     </form>
-
-    <ion-button (click)="registrar()" [routerLink]="'/login'" >Registrarse</ion-button>
 
   </div>
 
