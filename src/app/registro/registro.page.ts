@@ -3,7 +3,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { LocationService } from 'src/app/services/location.service';
 
+interface Region{
+  id:number;
+  nombre:string;
+}
+interface Comuna{
+  id:number;
+  nombre:string;
+}
 
 
 @Component({
@@ -16,6 +25,11 @@ export class RegistroPage {
   apellido: string = '';
   rut: string = '';
   carrera: string = '';
+  regiones:Region[]=[];
+  comunas:Comuna[]=[];
+  regionSel:number = 0;
+  comunaSel:number = 0;
+  seleccionComuna:boolean = true;
   usuario: string = '';
   contraseña: string = '';
   credencialesGuardadas: any[] = [];
@@ -25,7 +39,8 @@ export class RegistroPage {
   constructor(private fb: FormBuilder,
               private spinner: NgxSpinnerService,
               private userService: UserService,
-              private router: Router) {
+              private router: Router,
+              private locationService : LocationService) {
     this.registerForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -33,7 +48,25 @@ export class RegistroPage {
       carrera: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]})
+
   }
+
+  ngOnInit() {
+    this.cargarRegion();
+  }
+
+
+  async cargarRegion(){
+    const req = await this.locationService.getRegion();
+    this.regiones = req.data;
+  }
+
+  async cargarComuna(){
+    this.seleccionComuna = false;
+    const req = await this.locationService.getComuna(this.regionSel);
+    this.comunas = req.data;
+  }
+
 
   registrar() {
     this.spinner.show();
