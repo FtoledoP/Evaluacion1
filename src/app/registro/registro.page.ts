@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-import { LocationService } from 'src/app/services/location.service';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { ApiRest } from '../models/apiRest';
@@ -44,7 +43,6 @@ export class RegistroPage {
               private spinner: NgxSpinnerService,
               private userService: UserService,
               private router: Router,
-              private locationService : LocationService,
               private http:HttpClient) {
     this.registerForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -55,6 +53,27 @@ export class RegistroPage {
       password: ['', [Validators.required, Validators.minLength(6)]]})
 
   }
+ 
+
+  ngOnInit() {
+    this.cargarRegion();
+  }
+
+
+  async cargarRegion(){
+    const req = await this.getRegion();
+    console.log(req)
+    this.regiones = req.data;
+    console.log(this.regiones)
+  }
+
+  async cargarComuna(){
+    this.seleccionComuna = false;
+    console.log(this.regionSel)
+    const req = await this.getComuna(this.regionSel);
+    this.comunas = req.data;
+  }
+
   async getRegion(){
     return await lastValueFrom(this.http.get<ApiRest<any>>(`${environment.apiUrl}region`))
   }
@@ -62,24 +81,6 @@ export class RegistroPage {
   async getComuna(idRegion:number){
     return await lastValueFrom(this.http.get<ApiRest<any>>(`${environment.apiUrl}comuna/` + idRegion))
   }
-
-  ngOnInit() {
-    this.cargarRegion();
-  }
-  
-
-
-  async cargarRegion(){
-    const req = await this.getRegion();
-    this.regiones = req.data;
-  }
-
-  async cargarComuna(){
-    this.seleccionComuna = false;
-    const req = await this.getComuna(this.regionSel);
-    this.comunas = req.data;
-  }
-
 
   registrar() {
     this.spinner.show();

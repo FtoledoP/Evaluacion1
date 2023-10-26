@@ -48,7 +48,7 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-select [disabled]="seleccionComuna" [(ngModel)]="regionSel"  label="Comuna" placeholder="Seleccione">
+          <ion-select [disabled]="seleccionComuna" [(ngModel)]="comunaSel"  label="Comuna" placeholder="Seleccione">
             <ion-select-option *ngFor="let i of comunas" [value]="i.id">{{i.nombre}}</ion-select-option>
           </ion-select>
         </ion-item>
