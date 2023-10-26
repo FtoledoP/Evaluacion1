@@ -22,7 +22,8 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
-  },  {
+  },
+  {
     path: 'restablecer-contra',
     loadChildren: () => import('./restablecer-contra/restablecer-contra.module').then( m => m.RestablecerContraPageModule)
   },
@@ -38,6 +39,14 @@ const routes: Routes = [
     path: 'camara',
     loadChildren: () => import('./camara/camara.module').then( m => m.CamaraPageModule)
   },
+  {
+    path: '**',
+    redirectTo: 'error',
+    pathMatch: 'full'
+  },  {
+    path: 'error',
+    loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
+  }
 
 ];
 
