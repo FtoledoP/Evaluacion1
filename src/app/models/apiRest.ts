@@ -1,4 +1,4 @@
-export class ApiResponse<type>{
+export class ApiRest<type>{
     msg:string = '';
     data:type[]=[];
     success:boolean = false;
