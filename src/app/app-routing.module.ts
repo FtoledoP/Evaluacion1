@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'alumno-registrado',
     loadChildren: () => import('./alumno-registrado/alumno-registrado.module').then( m => m.AlumnoRegistradoPageModule)
   },
+  {
+    path: 'camara',
+    loadChildren: () => import('./camara/camara.module').then( m => m.CamaraPageModule)
+  },
 
 ];
 
