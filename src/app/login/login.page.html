@@ -27,7 +27,7 @@
         </div>
         <ion-item class="formGroup">
           <ion-label for="password" position="floating">Contraseña</ion-label>
-          <ion-input class="form-control" id="password" formControlName="password" type="password" placeholder="****"  ></ion-input>
+          <ion-input class="form-control" id="password" formControlName="password" type="password" placeholder="Ingrese su contraseña"  ></ion-input>
         </ion-item>
         <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.dirty">
           {{ validationMessages.password.required }}

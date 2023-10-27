@@ -13,6 +13,7 @@ import { UserService } from '../services/user.service';
 export class HomePage {
   private animation: Animation = createAnimation('');
   usuario: string = '';
+  titulo:string = ''
   nombre: string = '';
   apellido: string = '';
   nivelEducacion: string = '';
@@ -26,6 +27,7 @@ export class HomePage {
     private userService: UserService
   ) {
     this.usuario = this.userService.currentUser.nombre + ' ' + this.userService.currentUser.apellido;
+    this.titulo = 'Bienvenido ' + this.userService.currentUser.nombre + '!!!!';
   }
 
 
