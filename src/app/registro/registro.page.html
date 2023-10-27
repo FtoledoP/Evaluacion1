@@ -42,15 +42,21 @@
             {{ validationMessages.carrera.required }}
           </div>
         </ion-item>
-        <ion-item>
-          <ion-select (ionChange)="cargarComuna()" [(ngModel)]="regionSel"  label="Region" placeholder="Seleccione">
+        <ion-item class="formGroup">
+          <ion-select (ionChange)="cargarComuna()" [(ngModel)]="regionSel"  label="Region" placeholder="Seleccione" class="form-control" id="region" formControlName="region">
             <ion-select-option *ngFor="let i of regiones" [value]="i.id">{{i.nombre}}</ion-select-option>
           </ion-select>
+          <div *ngIf="registerForm.get('region')?.hasError('required') && registerForm.get('region')?.dirty">
+            {{ validationMessages.region.required }}
+          </div>
         </ion-item>
-        <ion-item>
-          <ion-select [disabled]="seleccionComuna" [(ngModel)]="comunaSel"  label="Comuna" placeholder="Seleccione">
-            <ion-select-option *ngFor="let i of comunas" [value]="i.id">{{i.nombre}}</ion-select-option>
+        <ion-item class="formGroup">
+          <ion-select [disabled]="seleccionComuna" [(ngModel)]="comunaSel"  label="Comuna" placeholder="Seleccione" class="form-control" id="comuna" formControlName="comuna">
+            <ion-select-option *ngFor="let i of comunas" [value]="i.nombre">{{i.nombre}}</ion-select-option>
           </ion-select>
+          <div *ngIf="registerForm.get('comuna')?.hasError('required') && registerForm.get('comuna')?.dirty">
+            {{ validationMessages.comuna.required }}
+          </div>
         </ion-item>
         <ion-item class="formGroup">
           <ion-label for="correo" position="floating">Correo</ion-label>

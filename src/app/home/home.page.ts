@@ -3,6 +3,7 @@ import { AlertController, NavController, createAnimation } from '@ionic/angular'
 import { ActivatedRoute } from '@angular/router';
 import { AnimationController } from '@ionic/angular';
 import { Animation } from '@ionic/angular';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -21,13 +22,10 @@ export class HomePage {
     private route: ActivatedRoute,
     private alertController: AlertController,
     private navCtrl: NavController,
-    private animationCtrl: AnimationController
+    private animationCtrl: AnimationController,
+    private userService: UserService
   ) {
-    this.route.queryParams.subscribe((params) => {
-      if (params && 'usuario' in params) {
-        this.usuario = params['usuario'];
-      }
-    });
+    this.usuario = this.userService.currentUser.nombre + ' ' + this.userService.currentUser.apellido;
   }
 
 
@@ -60,7 +58,7 @@ export class HomePage {
   }
 
   cerrarSesion() {
-    this.navCtrl.navigateBack('/login');
+    this.userService.logout();
   }
 
   applyTitleAnimation() {

@@ -13,15 +13,18 @@
 
   <div id="container">
     <strong>Bievenid@!</strong>
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()">
       <ion-list>
-        <ion-item class="formGroup" (ngSubmit)="iniciarSesion()">
+        <ion-item class="formGroup">
           <ion-label for="correo" position="floating">Correo</ion-label>
           <ion-input type="text" class="form-control" id="correo" formControlName="correo" placeholder="Ingrese su correo"></ion-input>
-          <div *ngIf="loginForm.get('correo')?.hasError('required') && loginForm.get('correo')?.dirty">
-            {{ validationMessages.correo.required }}
-          </div>
         </ion-item>
+        <div *ngIf="loginForm.get('correo')?.hasError('required') && loginForm.get('correo')?.dirty">
+          {{ validationMessages.correo.required }}
+        </div>
+        <div *ngIf="loginForm.get('correo')?.hasError('email') && loginForm.get('correo')?.dirty">
+          {{ validationMessages.correo.email}}
+        </div>
         <ion-item class="formGroup">
           <ion-label for="password" position="floating">Contraseña</ion-label>
           <ion-input class="form-control" id="password" formControlName="password" type="password" placeholder="****"  ></ion-input>
@@ -32,7 +35,7 @@
       </ion-list>
       <ion-button type="submit" [disabled]="!loginForm.valid" expand="full">Ingresar</ion-button>
     </form>
-    <p *ngIf="errorMensaje" class="error-message">{{ errorMensaje }}</p>
+    <p *ngIf="error" class="error-message">{{ errorMensaje }}</p>
     <ion-button [routerLink]="'/restablecer-contra'" fill="clear">¿Olvidaste tu contraseña?</ion-button>
     <ion-button [routerLink]="'/registro'" fill="clear">¿No tienes cuenta? Registrate</ion-button>
   </div>

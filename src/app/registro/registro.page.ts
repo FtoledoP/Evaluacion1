@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
@@ -49,6 +49,8 @@ export class RegistroPage {
       apellido: ['', Validators.required],
       rut:['', Validators.required],
       carrera: ['', Validators.required],
+      region: ['', [Validators.required, this.customValidator]],
+      comuna: ['', [Validators.required, this.customValidator]],
       correo: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]})
 
@@ -81,13 +83,17 @@ export class RegistroPage {
   async getComuna(idRegion:number){
     return await lastValueFrom(this.http.get<ApiRest<any>>(`${environment.apiUrl}comuna/` + idRegion))
   }
-  
 
   registrar() {
     this.spinner.show();
     if (this.registerForm.valid) {
       this.spinner.show();
       const data = this.registerForm.value;
+      this.regiones.forEach(element => {
+        if(element.id == data.region){
+          data.region = element.nombre;
+        }
+      })
       console.log('Formulario válido:', this.registerForm.value);
       this.userService.register(data.correo, data.password).then((res) => {
         console.log('Usuario registrado correctamente: ' + res);
@@ -106,6 +112,14 @@ export class RegistroPage {
       })
     }
   }
+
+  customValidator(control: AbstractControl): { [key: string]: any } | null {
+    if (control.value === 0) {
+      return { 'required': true };
+    }
+    return null;
+  }
+
   validationMessages = {
     nombre: {
       required: 'Debe ingresar su nombre.'
@@ -118,6 +132,12 @@ export class RegistroPage {
     },
     carrera: {
       required: 'Debe ingresar su carrera.'
+    },
+    region: {
+      required: 'Region es requerido.'
+    },
+    comuna: {
+      required: 'Comuna es requerida.'
     },
     correo: {
       required: 'Debe ingresar un correo.',
