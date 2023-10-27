@@ -81,6 +81,7 @@ export class RegistroPage {
   async getComuna(idRegion:number){
     return await lastValueFrom(this.http.get<ApiRest<any>>(`${environment.apiUrl}comuna/` + idRegion))
   }
+  
 
   registrar() {
     this.spinner.show();
