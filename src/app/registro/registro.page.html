@@ -1,15 +1,11 @@
-<ion-header [translucent]="true">
+<ion-header collapse="condense">
   <ion-toolbar>
-    <ion-title>Registro</ion-title>
+    <ion-title class="align-left-title" size="medium" >Registro</ion-title>
+    <button (click)="retroceder()" class="boton-retroceder">← Retroceder</button>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+ 
   <div id="container">
 
     <form [formGroup]="registerForm" (ngSubmit)="registrar()">

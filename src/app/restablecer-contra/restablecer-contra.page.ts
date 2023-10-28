@@ -29,4 +29,8 @@ export class RestablecerContraPage implements OnInit {
     console.log('Carga info usuario', this.usuariosStorage[0].nombre);
   }
 
+  retroceder() {
+    window.history.back();
+  }
+
 }

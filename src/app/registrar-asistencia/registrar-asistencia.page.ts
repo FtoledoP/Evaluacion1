@@ -112,4 +112,9 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
     
   }
 
+  retroceder() {
+    this.router.navigate(['/home'])
+
+  }
+
 }

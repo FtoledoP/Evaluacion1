@@ -3,17 +3,12 @@
     <ion-title id="animacion" >
       {{ titulo }}
     </ion-title>
+    <button (click)="retroceder()" class="boton-retroceder">← Retroceder</button>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large"></ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+ 
   <div id="container">
     <strong>Bienvenid@!!! </strong>
     <h5>Usuario:  {{ usuario }}</h5>

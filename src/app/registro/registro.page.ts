@@ -149,4 +149,9 @@ export class RegistroPage {
     }
   };
 
+  retroceder() {
+    window.history.back();
+  }
+
+
 }

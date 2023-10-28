@@ -94,4 +94,8 @@ export class HomePage {
   ionViewDidEnter() {
     this.applyTitleAnimation();
   }
+
+  retroceder() {
+    window.history.back();
+  }
 }

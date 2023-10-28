@@ -50,5 +50,7 @@ export class CamaraPage implements OnInit {
     }
   }
 
-
+  retroceder() {
+    window.history.back();
+  }
 }
