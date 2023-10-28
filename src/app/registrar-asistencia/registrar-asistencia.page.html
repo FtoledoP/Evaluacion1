@@ -13,35 +13,54 @@
 
   <div class="container">
     <div class="scanner-sheel" [hidden]="!hasDevices">
-      <select (change)="onDeviceSelectChange()">
-        <option value="" [selected]="!currentDevice">No device selected</option>
-        <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{ device.label }}</option>
-      </select>
-    
-      <zxing-scanner #scanner start="true" [device]="currentDevice" (scanSuccess)="handleQrCodeResult($event)" [formats]="formats"></zxing-scanner>
-    
+
+      <zxing-scanner *ngIf="!qrResultString" #scanner start="true" [device]="currentDevice" (scanSuccess)="handleQrCodeResult($event)" [formats]="formats"></zxing-scanner>
+
       <section class="results" *ngIf="qrResultString">
         <h3>Asistencia registrada:</h3>
-        <ion-card *ngFor="let u of usuariosStorage" >
+        <ion-card>
           <h2>Datos clase</h2>
           <div class="box">
             <h4>{{ qrResultString }}</h4>
           </div>
           <h2>Datos usuario</h2>
           <div class="box">
+            <h3>Carrera:</h3>
+            <h4>{{currentUser.carrera}}</h4>
+          </div>
+          <div class="box">
             <h3>Nombre:</h3>
-            <h4>{{u.nombre}}</h4>
+            <h4>{{currentUser.nombre}}</h4>
           </div>
           <div class="box">
             <h3>Apellido:</h3>
-            <h4>{{u.apellido}}</h4>
+            <h4>{{currentUser.apellido}}</h4>
           </div>
           <div class="box">
             <h3>Rut:</h3>
-            <h4>{{u.rut}}</h4>
+            <h4>{{currentUser.rut}}</h4>
+          </div>
+          <div class="box">
+            <h3>Region:</h3>
+            <h4>{{currentUser.region}}</h4>
+          </div>
+          <div class="box">
+            <h3>Comuna:</h3>
+            <h4>{{currentUser.comuna}}</h4>
+          </div>
+          <div class="box">
+            <h3>Foto:</h3>
+            <img [src]="currentUser.selfie" alt="Foto de usuario" width="200px" height="200px">
+          </div>
+          <div class="box">
+            <h3>Ubicacion:</h3>
+            <h4>{{ubi | coordinates}}</h4>
           </div>
         </ion-card>
       </section>
     </div>
   </div>
 </ion-content>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "timer" [fullScreen] = "true"><p style="color: white" > Cargando . . . </p></ngx-spinner>
+

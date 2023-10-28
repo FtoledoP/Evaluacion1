@@ -2,7 +2,15 @@ import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { Result, BarcodeFormat } from '@zxing/library';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LocationService } from '../services/location.service';
+import { Geolocation } from '@capacitor/geolocation';
 
+interface Location {
+  latitude: number;
+  longitude: number;
+}
 @Component({
   selector: 'app-registrar-asistencia',
   templateUrl: './registrar-asistencia.page.html',
@@ -11,19 +19,7 @@ import { Router } from '@angular/router';
 export class RegistrarAsistenciaPage implements AfterViewInit {
   @ViewChild('scanner', { static: false })
   scanner!: ZXingScannerComponent;
-  nombre!:string
-  apellido!:string
-  rut!:string
-  datoUsuario = {
-    nombre: '',
-    apellido: '',
-    rut: '',
-    escuela: '',
-    carrera: '',
-    contraseña: '',
-    usuario: ''
-  };
-
+  currentUser: any;
   hasDevices: boolean = false;
   qrResultString: string = '';
   qrResult: Result | undefined;
@@ -38,8 +34,14 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
   ];
 
   usuariosStorage!:any;
+  ubi:any;
 
-  constructor(private router:Router) {}
+  constructor(private router:Router,
+              private userService: UserService,
+              private spinner: NgxSpinnerService,
+              private location: LocationService) {
+    this.currentUser = this.userService.currentUser;
+  }
 
   ngAfterViewInit(): void {
     this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
@@ -71,18 +73,22 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
   }
 
   handleQrCodeResult(resultString: string) {
-    const usuarioActualString = localStorage.getItem('credenciales');
-
-    if (usuarioActualString) {
-      this.datoUsuario = JSON.parse(usuarioActualString);
-      console.log(usuarioActualString);
-      console.log(this.datoUsuario)
-    }
-    this.datosUsuario();
-    console.log('Result: ', resultString);
-    console.log(this.datoUsuario);
-    this.qrResultString = resultString;
-    this.scanner.ngOnDestroy();
+    Geolocation.getCurrentPosition().then((resp) => {
+      console.log(resp);
+      const location: Location = {
+        latitude: resp.coords.latitude,
+        longitude: resp.coords.longitude
+      };
+      console.log('Latitude: ', location.latitude);
+      console.log('Longitude: ', location.longitude);
+      this.ubi = location;
+      console.log('Result: ', resultString);
+      this.qrResultString = resultString;
+      this.scanner.ngOnDestroy();
+    });
+      console.log('Result: ', resultString);
+      this.qrResultString = resultString;
+      this.scanner.ngOnDestroy();
     }
 
     cargaInfoUsuario() {
@@ -104,17 +110,9 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
     }
   }
 
-  datosUsuario() {
-
-    this.nombre = this.datoUsuario.nombre;
-    this.apellido = this.datoUsuario.apellido;
-    this.rut = this.datoUsuario.rut;
-    
-  }
-
   retroceder() {
     this.router.navigate(['/home'])
-
+    this.scanner.ngOnDestroy();
   }
 
 }
