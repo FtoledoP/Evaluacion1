@@ -3,6 +3,8 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signO
 import { Router } from '@angular/router';
 import { Firestore, collection, addDoc, query, where, getDocs, setDoc, doc, getDoc } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
+import { Storage, ref, uploadBytes } from '@angular/fire/storage';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,8 @@ export class UserService {
 
   constructor(private firestore: Firestore,
               private auth: Auth,
-              private router: Router) {
+              private router: Router,
+              /*private storage: Storage*/) {
   }
 
 
@@ -57,5 +60,12 @@ export class UserService {
   isLogged(): boolean {
     return !!this.auth.currentUser;
   }
+
+  /*
+  subirSelfie(imagen:any){
+    const storageRef = ref(this.storage, 'userImg/' + imagen.fname);
+    return uploadBytes(storageRef, imagen.file);
+  }
+  */
 
 }

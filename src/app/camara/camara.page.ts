@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-camara',
@@ -9,10 +10,10 @@ import { defineCustomElements } from '@ionic/pwa-elements/loader';
 })
 export class CamaraPage implements OnInit {
 
-  
-  imagenes:any[]=[];
 
-  constructor() { }
+  imagen:any;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     defineCustomElements(window);
@@ -33,18 +34,25 @@ export class CamaraPage implements OnInit {
           presentationStyle:'popover',
           promptLabelCancel:"Cancelar",
           promptLabelHeader:"Seleccione",
-          promptLabelPhoto:"Desde la camara",
-          promptLabelPicture:"Desde la galeria"
+          promptLabelPhoto:"Desde la galeria",
+          promptLabelPicture:"Desde la camara"
         }
         );
 
         if (image.webPath) {
           var blob = (await fetch(image.webPath)).blob();
-          this.imagenes.unshift({fname:'foto.'+ image.format,src:image.webPath,file:blob});
+          this.imagen = {fname:'foto.'+ image.format,src:image.webPath,file:blob};
+          /*
+          this.userService.subirSelfie(this.imagen).then((res)=>{
+            console.log("IMAGEN GUARDADA ===> ", res);
+          }).catch((err)=>{
+            console.log("ERROR AL GUARDAR IMAGEN ===> ", err);
+          });
+          */
         }
 
-        console.log("IMAGENES GUARDADAS ===> ", this.imagenes);
-        
+        console.log("IMAGEN GUARDADA ===> ", this.imagen);
+
 
 
     }

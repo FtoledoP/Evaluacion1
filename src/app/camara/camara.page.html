@@ -8,8 +8,8 @@
 <ion-content [fullscreen]="true">
   <ion-button (click)=takePhoto()>Foto</ion-button>
 
-  <ion-card *ngFor="let i of imagenes">
-    <ion-img [src]="i.src"></ion-img>
+  <ion-card *ngIf="imagen">
+    <ion-img [src]="imagen.src"></ion-img>
   </ion-card>
 
 </ion-content>
