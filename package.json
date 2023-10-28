@@ -35,7 +35,7 @@
     "@ionic/pwa-elements": "^3.2.2",
     "@zxing/ngx-scanner": "^16.0.1",
     "bootstrap": "^5.3.1",
-    "firebase": "^10.5.0",
+    "firebase": "^10.5.2",
     "ionicons": "^7.0.0",
     "ngx-bootstrap": "^11.0.2",
     "ngx-spinner": "^16.0.2",

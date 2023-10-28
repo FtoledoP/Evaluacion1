@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, getAuth, onAuthStateChanged, updatePassword } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { Storage, ref, uploadBytes } from '@angular/fire/storage';
 import { Firestore, collection, addDoc, query, where, getDocs, setDoc, doc, getDoc } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
-import { Storage, ref, uploadBytes } from '@angular/fire/storage';
-
+import { getDownloadURL } from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class UserService {
   constructor(private firestore: Firestore,
               private auth: Auth,
               private router: Router,
-              /*private storage: Storage*/) {
+              private storage: Storage) {
   }
 
 
@@ -61,11 +61,20 @@ export class UserService {
     return !!this.auth.currentUser;
   }
 
-  /*
-  subirSelfie(imagen:any){
+  async subirSelfie(imagen:any){
     const storageRef = ref(this.storage, 'userImg/' + imagen.fname);
-    return uploadBytes(storageRef, imagen.file);
+    await uploadBytes(storageRef, imagen.file);
+    getDownloadURL(storageRef).then((url)=>{
+      console.log("URL ===> ", url);
+      this.currentUser.selfie = url;
+      const usersRef = collection(this.firestore, 'users');
+      const userDoc = doc(usersRef, this.currentUser.correo);
+      setDoc(userDoc, this.currentUser);
+      return this.router.navigate(['/home']);
+    }).catch((err)=>{
+      console.log("ERROR AL OBTENER URL ===> ", err);
+      return 'error'
+    });
   }
-  */
 
 }

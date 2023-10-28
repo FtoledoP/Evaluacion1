@@ -10,6 +10,9 @@
 
   <ion-card *ngIf="imagen">
     <ion-img [src]="imagen.src"></ion-img>
+    <ion-button (click)="subirFoto()">Subir foto</ion-button>
   </ion-card>
 
 </ion-content>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "timer" [fullScreen] = "true"><p style="color: white" > Cargando . . . </p></ngx-spinner>

@@ -18,7 +18,9 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import * as firebase from 'firebase/app';
 
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [AppComponent],

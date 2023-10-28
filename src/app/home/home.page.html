@@ -8,8 +8,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
- 
+
   <div id="container">
+    <div class="foto" *ngIf="currentUser.selfie">
+      <img [src]="currentUser.selfie" alt="Foto de usuario" width="200px" height="200px">
+    </div>
     <strong>Bienvenid@!!! </strong>
     <h5>Usuario:  {{ usuario }}</h5>
     <h1>Información Adicional </h1>

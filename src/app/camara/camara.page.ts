@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { UserService } from '../services/user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-camara',
@@ -13,7 +15,8 @@ export class CamaraPage implements OnInit {
 
   imagen:any;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     defineCustomElements(window);
@@ -40,15 +43,18 @@ export class CamaraPage implements OnInit {
         );
 
         if (image.webPath) {
-          var blob = (await fetch(image.webPath)).blob();
-          this.imagen = {fname:'foto.'+ image.format,src:image.webPath,file:blob};
-          /*
-          this.userService.subirSelfie(this.imagen).then((res)=>{
-            console.log("IMAGEN GUARDADA ===> ", res);
-          }).catch((err)=>{
-            console.log("ERROR AL GUARDAR IMAGEN ===> ", err);
-          });
-          */
+          const pngBlob = await fetch(image.webPath).then((response) =>
+          response.blob()
+          );
+          this.imagen = {
+            fname:
+              this.userService.currentUser.nombre +
+              this.userService.currentUser.apellido +
+              '.png',
+            src: image.webPath,
+            file: pngBlob,
+          };
+          console.log('IMAGEN GUARDADA ===> ', this.imagen);
         }
 
         console.log("IMAGEN GUARDADA ===> ", this.imagen);
@@ -56,6 +62,11 @@ export class CamaraPage implements OnInit {
 
 
     }
+  }
+
+  subirFoto(){
+    this.spinner.show();
+    this.userService.subirSelfie(this.imagen);
   }
 
   retroceder() {

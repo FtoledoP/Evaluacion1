@@ -18,6 +18,7 @@ export class HomePage {
   apellido: string = '';
   nivelEducacion: string = '';
   seleccionFecha : Date | null = null;
+  currentUser: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,7 @@ export class HomePage {
     private animationCtrl: AnimationController,
     private userService: UserService
   ) {
+    this.currentUser = this.userService.currentUser;
     this.usuario = this.userService.currentUser.nombre + ' ' + this.userService.currentUser.apellido;
     this.titulo = 'Bienvenido ' + this.userService.currentUser.nombre + '!!!!';
   }
@@ -41,8 +43,8 @@ export class HomePage {
         .iterations(1)
         .keyframes([
           { offset: 0, transform: 'translateX(0px)' },
-          { offset: 0.33, transform: 'translateX(500px)' }, 
-          { offset: 0.66, transform: 'translateX(-10px)' }, 
+          { offset: 0.33, transform: 'translateX(500px)' },
+          { offset: 0.66, transform: 'translateX(-10px)' },
           { offset: 1, transform: 'translateX(0px)' },
         ]);
     await animation.play();
@@ -77,7 +79,7 @@ export class HomePage {
           { offset: 0.4, transform: 'translateX(100%)', opacity: '0' },
           { offset: 0.6, transform: 'translateX(-100%)', opacity: '0' },
           { offset: 1, transform: 'translateX(0px)', opacity: '1' },
-        ]); 
+        ]);
 
       this.animation.play();
     }
@@ -87,7 +89,7 @@ export class HomePage {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve();
-        }, 200); 
+        }, 200);
     });
 }
 
