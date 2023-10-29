@@ -20,6 +20,7 @@ export class CamaraPage implements OnInit {
 
   ngOnInit() {
     defineCustomElements(window);
+    this.spinner.hide();
   }
 
   async takePhoto(){

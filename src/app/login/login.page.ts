@@ -60,9 +60,13 @@ export class LoginPage {
         console.log(error);
         this.loginForm.reset();
       });
+      this.spinner.hide();
     }
   }
 
+  ngOnInit() {
+    this.spinner.hide();
+  }
 
   validationMessages = {
     correo: {

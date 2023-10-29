@@ -3,7 +3,6 @@ import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { Result, BarcodeFormat } from '@zxing/library';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { LocationService } from '../services/location.service';
 import { Geolocation } from '@capacitor/geolocation';
 
@@ -38,7 +37,6 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
 
   constructor(private router:Router,
               private userService: UserService,
-              private spinner: NgxSpinnerService,
               private location: LocationService) {
     this.currentUser = this.userService.currentUser;
   }
@@ -89,15 +87,6 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
       console.log('Result: ', resultString);
       this.qrResultString = resultString;
       this.scanner.ngOnDestroy();
-    }
-
-    cargaInfoUsuario() {
-      this.usuariosStorage = JSON.parse(localStorage.getItem('credenciales') || '{}');
-      console.log('Carga info usuario', this.usuariosStorage[0].nombre);
-    }
-
-    ngOnInit() {
-      this.cargaInfoUsuario();
     }
 
   onDeviceSelectChange() {

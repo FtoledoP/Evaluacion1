@@ -48,7 +48,7 @@
             <h3>Comuna:</h3>
             <h4>{{currentUser.comuna}}</h4>
           </div>
-          <div class="box">
+          <div class="box" *ngIf="currentUser.selfie">
             <h3>Foto:</h3>
             <img [src]="currentUser.selfie" alt="Foto de usuario" width="200px" height="200px">
           </div>
@@ -62,5 +62,4 @@
   </div>
 </ion-content>
 
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "timer" [fullScreen] = "true"><p style="color: white" > Cargando . . . </p></ngx-spinner>
 
