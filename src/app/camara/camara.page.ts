@@ -68,6 +68,7 @@ export class CamaraPage implements OnInit {
   subirFoto(){
     this.spinner.show();
     this.userService.subirSelfie(this.imagen);
+    this.spinner.hide();
   }
 
   retroceder() {
