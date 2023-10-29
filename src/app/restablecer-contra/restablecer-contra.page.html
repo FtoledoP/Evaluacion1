@@ -11,17 +11,24 @@
       <ion-title size="medium">Reestablecer contraseña</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <ion-item>
-    <ion-label position="floating">Ingrese el usuario</ion-label>
-    <ion-input id="nombre-input" placeholder="Ingrese su nombre" [(ngModel)]="usuario"></ion-input>
-  </ion-item>
+  <form [formGroup]="recForm" (ngSubmit)="resuperarContra()">
+    <ion-item class="formGroup">
+      <ion-label for="correo" position="floating" position="floating">Ingrese el correo</ion-label>
+      <ion-input type="text" class="form-control" id="correo" formControlName="correo" placeholder="Ingrese su correo"></ion-input>
+    </ion-item>
+    <div *ngIf="recForm.get('correo')?.hasError('required') && recForm.get('correo')?.dirty">
+      {{ validationMessages.correo.required }}
+    </div>
+    <div *ngIf="recForm.get('correo')?.hasError('email') && recForm.get('correo')?.dirty">
+      {{ validationMessages.correo.email}}
+    </div>
+    <ion-button expand="full" [disabled]="!recForm.valid" type="submit">Recuperar contraseña</ion-button>
+  </form>
   <ion-card *ngIf="password">
     <h2>Su contraseña:</h2>
     <div class="box">
       <h4>{{ password }}</h4>
     </div>
   </ion-card>
-  <ion-button expand="full" (click)="resuperarContra()">Recuperar contraseña</ion-button>
 
 </ion-content>
