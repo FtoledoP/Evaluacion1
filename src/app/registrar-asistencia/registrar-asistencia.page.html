@@ -15,6 +15,7 @@
     <div class="scanner-sheel" [hidden]="!hasDevices">
 
       <zxing-scanner *ngIf="!qrResultString" #scanner start="true" [device]="currentDevice" (scanSuccess)="handleQrCodeResult($event)" [formats]="formats"></zxing-scanner>
+      
 
       <section class="results" *ngIf="qrResultString">
         <h3>Asistencia registrada:</h3>
