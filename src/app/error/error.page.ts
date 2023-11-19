@@ -12,4 +12,9 @@ export class ErrorPage implements OnInit {
   ngOnInit() {
   }
 
+  retroceder() {
+    window.history.back();
+  }
+
+
 }
