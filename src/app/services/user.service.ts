@@ -78,9 +78,9 @@ export class UserService {
   }
 
   async createClass(data:any){
-    const usersRef = collection(this.firestore, 'claseRegistrada');
-    return await setDoc(doc(usersRef, data.correo), {
-            DatosClase: data.DatosClase,
+    const classRef = collection(this.firestore, 'class');
+    return await setDoc(doc(classRef), {
+            clase: data.clase,
             nombre: data.nombre,
             apellido: data.apellido,
             correo: data.correo,

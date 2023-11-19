@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { LocationService } from '../services/location.service';
 import { Geolocation } from '@capacitor/geolocation';
-import { CoordinatesPipe } from '../pipes/coordinates.pipe';
+import { Firestore, collection, addDoc, query, where, getDocs, setDoc, doc, getDoc } from '@angular/fire/firestore';
 
 interface Location {
   latitude: number;
@@ -39,8 +39,25 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
   constructor(private router:Router,
               private userService: UserService,
               private location: LocationService,
-              private pipe: CoordinatesPipe) {
+              private firestore: Firestore) {
     this.currentUser = this.userService.currentUser;
+  }
+
+  transform(coordinates: { latitude: number; longitude: number }): string {
+    if (!coordinates || typeof coordinates.latitude !== 'number' || typeof coordinates.longitude !== 'number') {
+      return 'Invalid coordinates';
+    }
+
+    const lat = coordinates.latitude;
+    const lon = coordinates.longitude;
+
+    const latDegrees = Math.floor(lat);
+    const latMinutes = (lat - latDegrees) * 60;
+
+    const lonDegrees = Math.floor(lon);
+    const lonMinutes = (lon - lonDegrees) * 60;
+
+    return `${latDegrees}° ${latMinutes.toFixed(3)}' N, ${lonDegrees}° ${lonMinutes.toFixed(3)}' W`;
   }
 
   ngAfterViewInit(): void {
@@ -72,7 +89,7 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
     this.availableDevices = cameras;
   }
 
-  handleQrCodeResult(resultString: string) {
+  async handleQrCodeResult(resultString: string) {
     Geolocation.getCurrentPosition().then((resp) => {
       console.log(resp);
       const location: Location = {
@@ -84,10 +101,12 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
       this.ubi = location;
       console.log('Result: ', resultString);
       this.qrResultString = resultString;
-      this.scanner.ngOnDestroy();
-      const ubicacion = this.pipe.transform(this.ubi);
-      const data = {
-        DatosClase: this.qrResultString,
+      console.log('From HERE!')
+      const clase = this.qrResultString.toString();
+      console.log(clase)
+      const classRef = collection(this.firestore, 'class');
+      setDoc(doc(classRef), {
+        Clase: clase,
         Nombre: this.currentUser.nombre,
         Apellido: this.currentUser.apellido,
         Correo: this.currentUser.correo,
@@ -96,11 +115,12 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
         Region: this.currentUser.region,
         Comuna: this.currentUser.comuna,
         Foto: this.currentUser.selfie,
-        Ubicacion: ubicacion
-      }
-      this.userService.createClass(data).then((res)=>{
-        console.log('Clase creado en la base de datos: ---> ' + res);
-      });
+        Ubicacion: this.transform(this.ubi)}).then(()=>{
+          console.log('Se ha registrado la asistencia')
+        }).catch(()=>{
+          console.log('No se ha registrado la asistencia')
+        });
+      this.scanner.ngOnDestroy();
     });
       console.log('Result: ', resultString);
       this.qrResultString = resultString;
