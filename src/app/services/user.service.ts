@@ -77,4 +77,19 @@ export class UserService {
     });
   }
 
+  async createClass(data:any){
+    const usersRef = collection(this.firestore, 'claseRegistrada');
+    return await setDoc(doc(usersRef, data.correo), {
+            DatosClase: data.DatosClase,
+            nombre: data.nombre,
+            apellido: data.apellido,
+            correo: data.correo,
+            rut: data.rut,
+            carrera: data.carrera,
+            region: data.region,
+            comuna: data.comuna,
+            foto: data.Foto,
+            ubicacion: data.Ubicacion});
+  }
+
 }

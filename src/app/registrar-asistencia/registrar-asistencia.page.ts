@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { LocationService } from '../services/location.service';
 import { Geolocation } from '@capacitor/geolocation';
+import { CoordinatesPipe } from '../pipes/coordinates.pipe';
 
 interface Location {
   latitude: number;
@@ -37,7 +38,8 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
 
   constructor(private router:Router,
               private userService: UserService,
-              private location: LocationService) {
+              private location: LocationService,
+              private pipe: CoordinatesPipe) {
     this.currentUser = this.userService.currentUser;
   }
 
@@ -83,6 +85,22 @@ export class RegistrarAsistenciaPage implements AfterViewInit {
       console.log('Result: ', resultString);
       this.qrResultString = resultString;
       this.scanner.ngOnDestroy();
+      const ubicacion = this.pipe.transform(this.ubi);
+      const data = {
+        DatosClase: this.qrResultString,
+        Nombre: this.currentUser.nombre,
+        Apellido: this.currentUser.apellido,
+        Correo: this.currentUser.correo,
+        Rut: this.currentUser.rut,
+        Carrera: this.currentUser.carrera,
+        Region: this.currentUser.region,
+        Comuna: this.currentUser.comuna,
+        Foto: this.currentUser.selfie,
+        Ubicacion: ubicacion
+      }
+      this.userService.createClass(data).then((res)=>{
+        console.log('Clase creado en la base de datos: ---> ' + res);
+      });
     });
       console.log('Result: ', resultString);
       this.qrResultString = resultString;
